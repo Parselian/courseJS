@@ -1,8 +1,7 @@
 let num = 266219,
-    result,
-    i;
+    result;
 
-let arr = num.toString().split('');
+let arr = num.toString().split(''); //
 console.log('arr: ', arr);
 
 result = arr.reduce(function(sum, current) {
