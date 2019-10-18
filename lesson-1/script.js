@@ -21,7 +21,8 @@ console.log(income.length);
 console.log('Период ' + period + ' месяцев');
 console.log('цель заработать ' + mission + ' шекелей');
 
-console.log(addExpenses.toLowerCase().split(', '));
+let arrExpenses = addExpenses.toLowerCase().split(', ');
+console.log(arrExpenses);
 
 let budgetDay = money / 30;
 
