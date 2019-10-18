@@ -25,6 +25,6 @@ console.log(addExpenses.toLowerCase().split(', '));
 
 let budgetDay = money / 30;
 
-console.log('Ваш бюджет на день: ' + Math.trunc(budgetDay) + ' шекелей, остаток: ' + (budgetDay - Math.trunc(budgetDay))); 
+console.log('Ваш бюджет на день: ' + Math.trunc(budgetDay) + ' шекелей, остаток: ' + (money % 30)); 
 
 
