@@ -1,10 +1,14 @@
-let num = '266219',
-    result = 1,
+let num = 266219,
+    result,
     i;
 
-for( i = 0; i < num.length; i++) {
-  result *= num[i];
-}
+let arr = num.toString().split('');
+console.log('arr: ', arr);
+
+result = arr.reduce(function(sum, current) {
+  return sum * current;
+});
+
 console.log('Произведение чисел числа 266219: ' + result);
 
 let pow = result ** 3;
