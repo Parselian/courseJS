@@ -62,9 +62,9 @@ function getStatusIncome() {
 
   if( budgetDay > 800 ) {
      return 'Высокий уровень дохода';
-  } else if(300 < budgetDay < 800 || budgetDay === 300 || budgetDay === 800 ) {
+  } else if( 300 <= budgetDay <= 800 ) {
     return 'Средний уровень дохода';
-  } else if( 0 < budgetDay < 300 || budgetDay === 0 || budgetDay === 300 ) {
+  } else if( 0 <= budgetDay <= 300 ) {
     return 'Низкий уровень дохода';
   } else {
     return'Что-то пошло не так';
