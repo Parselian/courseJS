@@ -6,15 +6,17 @@ let money = +prompt('Введите ваш месячный доход:', ''),
     mission = 300000,
     period = 10;
 
-    
-    
-/* УРОК №3 */
-let arrExpenses = addExpenses.split(', ');
 
-console.log(arrExpenses);
-console.log(typeof money);
-console.log(typeof income);
-console.log(typeof deposit);
+
+function showTypeof(data) {
+  return typeof(data);
+}
+
+console.log(showTypeof(money));
+console.log(showTypeof(income));
+console.log(showTypeof(deposit));
+
+
 
 let question1 = prompt('Какие обязательные ежемесячные расходы у вас есть?', ''),
     question2 = +prompt('Во сколько это обойдется?', ''),
@@ -23,24 +25,52 @@ let question1 = prompt('Какие обязательные ежемесячны
     budgetMonth,
     roadToMission;
 
-budgetMonth = money - (question2 + question4);
-console.log(budgetMonth);
 
-roadToMission = Math.ceil(mission / budgetMonth);
-console.log(roadToMission);
 
-let budgetDay = budgetMonth / 30;
-console.log('Ваш бюджет на день: ' + Math.floor(budgetDay)); 
-
-if( budgetDay > 800 ) {
-  alert('Высокий уровень дохода');
-} else if(300 < budgetDay < 800 || budgetDay === 300 || budgetDay === 800 ) {
-  alert('Средний уровень дохода');
-} else if( 0 < budgetDay < 300 || budgetDay === 0 || budgetDay === 300 ) {
-  alert('Низкий уровень дохода');
-} else {
-  alert('Что-то пошло не так');
+function getExpensesMonth(val1, val2) {
+  return val1 + val2;
 }
 
+console.log('сумма всех расходов: ', getExpensesMonth(question2, question4));
+
+
+
+let accumulatedMonth;
+
+function getAccumulatedMonth() {
+  accumulatedMonth = money - (question2 + question4);
+  return accumulatedMonth;
+}
+
+console.log('Накопления за месяц: ', getAccumulatedMonth());
+
+
+
+function getTargetMonth() {
+  let roadToMission = Math.ceil(mission / accumulatedMonth);
+  return roadToMission;
+}
+
+console.log(getTargetMonth());
+
+
+
+let budgetDay;
+
+function getStatusIncome() {
+  budgetDay = budgetMonth / 30;
+
+  if( budgetDay > 800 ) {
+     return 'Высокий уровень дохода';
+  } else if(300 < budgetDay < 800 || budgetDay === 300 || budgetDay === 800 ) {
+    return 'Средний уровень дохода';
+  } else if( 0 < budgetDay < 300 || budgetDay === 0 || budgetDay === 300 ) {
+    return 'Низкий уровень дохода';
+  } else {
+    return'Что-то пошло не так';
+  }
+}
+
+console.log(getStatusIncome());
 
 
