@@ -2,16 +2,16 @@ function rapeRow(string) {
   let raped;
 
   if(typeof(string) != 'string') {
-    alert('WTF?!? I need ROW, man!');
+    return ('WTF?!? I need ROW, man!');
+  } else {
+    raped = string.trim();
+
+    if(raped.length > 30) {
+      raped = raped.slice(0, 30) + '...';
+    }
+
+    return raped;
   }
-
-  raped = string.trim();
-
-  if(raped.length > 30) {
-    raped = raped.slice(0, 30) + '...';
-  }
-
-  return raped;
 }
 
-console.log(rapeRow(' 123456789101234567892012345678930 '));
+console.log(rapeRow(100));
