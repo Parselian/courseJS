@@ -1,8 +1,6 @@
 /* УРОК №1 */
 let money,
     income = 'фриланс',
-    addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую: ', ''),
-    deposit = confirm('Есть ли у вас депозит в банке?'),
     mission = 300000,
     period = 10;
 
@@ -11,10 +9,15 @@ let start = function() {
     money = prompt('Введите ваш месячный доход:', '2500');
   } while( isNaN(money) || money === '' || money === null );
 
-  console.log('money: ', +money);
+  return +money;
 };
  
-start();
+console.log(start());
+
+
+
+let addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую: ', ''),
+deposit = confirm('Есть ли у вас депозит в банке?');
 
 
 
@@ -94,19 +97,17 @@ console.log(getTargetMonth());
 let budgetDay = 0;
 
 function getStatusIncome() {
-  console.log('accumulatedMonth: ', accumulatedMonth);
-  console.log('budgetDay: ', budgetDay);
   budgetDay = Math.floor(accumulatedMonth / 30);
 
   
 
   if( budgetDay > 800 ) {
     return 'Высокий уровень дохода';
-  } else if( 300 <= budgetDay <= 800 ) {
+  } else if( budgetDay >= 300 && budgetDay <= 800 ) {
     return 'Средний уровень дохода';
-  } else if( 0 < budgetDay <= 300 ) {
+  } else if( budgetDay >= 0 && budgetDay <= 300 ) {
     return 'Низкий уровень дохода';
-  } else if( budgetDay <= 0 ) {
+  } else if( budgetDay < 0 ) {
     return 'Что-то пошло не так';
   }
 }
