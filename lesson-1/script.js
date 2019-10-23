@@ -1,23 +1,21 @@
 /* УРОК №1 */
-let money,
+let money = start(),
     income = 'фриланс',
+    addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую: ', ''),
+    deposit = confirm('Есть ли у вас депозит в банке?'),
     mission = 300000,
     period = 10;
 
-let start = function() {
+function start() {
+  let money2;
   do {
-    money = prompt('Введите ваш месячный доход:', '2500');
-  } while( isNaN(money) || money === '' || money === null );
+    money2 = prompt('Введите ваш месячный доход:', '2500');
+  } while( isNaN(money2) || money2 === '' || money2 === null );
 
-  return +money;
+  return +money2;
 };
  
 console.log(start());
-
-
-
-let addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую: ', ''),
-deposit = confirm('Есть ли у вас депозит в банке?');
 
 
 
