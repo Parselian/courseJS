@@ -14,4 +14,4 @@ function rapeRow(string) {
   }
 }
 
-console.log(rapeRow(100));
+console.log(rapeRow(4325));
