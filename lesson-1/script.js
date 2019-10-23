@@ -94,6 +94,8 @@ console.log(getTargetMonth());
 let budgetDay = 0;
 
 function getStatusIncome() {
+  console.log('accumulatedMonth: ', accumulatedMonth);
+  console.log('budgetDay: ', budgetDay);
   budgetDay = Math.floor(accumulatedMonth / 30);
 
   
@@ -102,9 +104,9 @@ function getStatusIncome() {
     return 'Высокий уровень дохода';
   } else if( 300 <= budgetDay <= 800 ) {
     return 'Средний уровень дохода';
-  } else if( 0 <= budgetDay <= 300 ) {
+  } else if( 0 < budgetDay <= 300 ) {
     return 'Низкий уровень дохода';
-  } else if( budgetDay < 0 ) {
+  } else if( budgetDay <= 0 ) {
     return 'Что-то пошло не так';
   }
 }
