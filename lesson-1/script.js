@@ -13,8 +13,7 @@ function start() {
   } while( isNaN(money2) || money2 === '' || money2 === null );
 
   return +money2;
-};
- 
+}
 
 
 
@@ -110,5 +109,3 @@ function getStatusIncome() {
 }
 
 console.log(getStatusIncome());
-
-
