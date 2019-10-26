@@ -60,9 +60,11 @@ let appData = {
   getBudget: function() {
     appData.budgetMonth = appData.budget - appData.expensesMonth;
     appData.budgetDay = Math.floor(appData.budgetMonth / 30);
+
   },
   getTargetMonth: function() {
-    let roadToMission = Math.ceil(appData.mission / appData.budgetMonth);
+    let roadToMission = appData.mission / appData.budgetMonth;
+    alert(roadToMission);
 
     if(roadToMission <= 0 ) {
       return 'Цель не будет достигнута!';
@@ -83,10 +85,11 @@ let appData = {
   }
 };
 
+
 appData.asking();
+console.log('расходы за месяц: ', appData.getExpensesMonth());
 appData.getBudget();
 
-console.log('расходы за месяц: ', appData.getExpensesMonth());
 console.log('Достижение цели за: ', appData.getTargetMonth());
 console.log(appData.getStatusIncome());
 
