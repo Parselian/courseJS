@@ -64,7 +64,6 @@ let appData = {
   },
   getTargetMonth: function() {
     let roadToMission = Math.ceil(appData.mission / appData.budgetMonth);
-    alert(roadToMission);
 
     if(roadToMission <= 0 ) {
       return 'Цель не будет достигнута!';
