@@ -36,7 +36,7 @@ let appData = {
         cashIncome = null;
         alert('Введите корректные данные: доп.заработок - строка, прибыль в месяц - число!')
         itemIncome = prompt('Какой у вас дополнительный заработок?', 'мою полы в BlackStar burger');
-        cashIncome = prompt('Сколько в месяц вы зарабатываете на этом?', 4000);
+        cashIncome = prompt('Сколько в месяц вы зарабатываете на этом?', '4000');
       }
 
       while(!isNaN(itemIncome) || itemIncome === '' || itemIncome === null) {
@@ -50,7 +50,6 @@ let appData = {
       // console.log('ITEMINCOME: ' + typeof(itemIncome));
       // console.log('CASHINCOME: ' + typeof(cashIncome));
 
-        
     }
 
     let addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую: ', 'музыка, игры, качалка');
@@ -61,18 +60,22 @@ let appData = {
 
     for( let i = 0; i < 2; i++ ) {
       if( i === 0 ) {
-        expenses = prompt('Какие обязательные ежемесячные расходы у вас есть?', 'еда');
+        do {
+          expenses = prompt('Какие обязательные ежемесячные расходы у вас есть?', 'еда');
+        } while(!isNaN(expenses) || expenses === '' || expenses === null);
       } else {
-        expenses = prompt('Какие обязательные ежемесячные расходы у вас есть?', 'кварплата');
+        do {
+          expenses = prompt('Какие обязательные ежемесячные расходы у вас есть?', 'еда');
+        } while(!isNaN(expenses) || expenses === '' || expenses === null);
       } 
 
       let arg = 0;
 
-      arg = prompt('во сколько это обойдется?', 3000);     
+      arg = prompt('во сколько это обойдется?', '3000');     
       while (isNaN(arg) || arg === '' || arg === null) {
         arg = 0;
         alert('пожалуйста, введите число!');
-        arg = prompt('во сколько это обойдется?', 3000);     
+        arg = prompt('во сколько это обойдется?', '3000');     
       }
 
       arg = Number(arg);
