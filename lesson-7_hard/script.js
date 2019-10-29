@@ -8,6 +8,8 @@ function showCurrDate() {
       currMinutes = currDate.getMinutes(),
       currSeconds = currDate.getSeconds();
 
+  currMonth++;
+
   if( currMonth < 10 ) {
     currMonth = '0' + currMonth;
   } else if( currDay < 10 ) {
