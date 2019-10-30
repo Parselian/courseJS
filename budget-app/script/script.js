@@ -3,7 +3,7 @@ let salaryAmount = document.querySelector('.salary-amount'),
     incomeAddBtn = document.querySelectorAll('button')[0],
     addIncomeItem = document.querySelectorAll('.additional_income-item'),
     expensesItems = document.querySelectorAll('.expenses-items'),
-    expensesTitle = document.querySelectorAll('.expenses-title')[1],
+    expensesTitle = document.querySelector('input.expenses-title'),
     expensesAmount = document.querySelector('.expenses-amount'),
     expensesAddBtn = document.querySelectorAll('button')[1],
     addExpensesItem = document.querySelector('.additional_expenses-item'),
@@ -16,7 +16,8 @@ let salaryAmount = document.querySelector('.salary-amount'),
     inputValues = document.querySelectorAll('.result-total'),
     start = document.querySelector('#start'),
     cancel = document.querySelector('#cancel'),
-    periodAmount = document.querySelector('.period-amount');
+    periodAmount = document.querySelector('.period-amount'),
+    data = document.querySelector('data');
 
     
     let appData = {
@@ -65,14 +66,14 @@ let salaryAmount = document.querySelector('.salary-amount'),
         inputValues[5].value = appData.calcSavedMoney();
         inputValues[6].value = appData.getTargetMonth();
         
-        periodSelect.addEventListener('change', function() {
+        periodSelect.addEventListener('input', function() {
           inputValues[5].value = appData.calcSavedMoney();
         });
 
       },
       getExpensesBlock: function() {
         let newExpensesItems = expensesItems[0].cloneNode(true);
-        
+        newExpensesItems.setAttribute('value', '');
         expensesItems[0].parentNode.insertBefore(newExpensesItems, expensesAddBtn);
         expensesItems = document.querySelectorAll('.expenses-items');
 
@@ -82,7 +83,7 @@ let salaryAmount = document.querySelector('.salary-amount'),
       },
       getExpenses: function() {
         expensesItems.forEach(function(item) {
-          let itemExpenses = item.querySelector('.expenses-title').value,
+          let itemExpenses = item.querySelector('input.expenses-title').value,
               cashExpenses = item.querySelector('.expenses-amount').value;
 
           if(itemExpenses !== 0 && cashExpenses !== 0 ) {
@@ -193,12 +194,9 @@ let salaryAmount = document.querySelector('.salary-amount'),
     });
     expensesAddBtn.addEventListener('click', appData.getExpensesBlock);
     incomeAddBtn.addEventListener('click', appData.getIncomeBlock);
-    periodSelect.addEventListener('change', function() {
+    periodSelect.addEventListener('input', function() {
       periodAmount.textContent = periodSelect.value;
-    });
-
-    
-    
+    });  
     
     function showObjInfo(obj) {
       for( let key in obj ) {
@@ -214,13 +212,15 @@ let salaryAmount = document.querySelector('.salary-amount'),
     }
     
     function showExpensesString() {
-      let arr = [];
-      for(let i = 0; i < appData.addExpenses.length; i++) {
-        arr[i] = appData.addExpenses[i].toUpperCase().slice(-0, 1) + appData.addExpenses[i].slice(1);
-      }
+      let mainArr = appData.addExpenses,
+          arr = [];
+
+      mainArr.forEach(function(item) {
+        arr[item] = mainArr[item].toUpperCase().slice(-0, 1) + mainArr[item].slice(1);
+      });
       console.log(arr.join(', '));
     }
     
     // showObjInfo(appData);
-    // showExpensesString();
+    showExpensesString();
     
