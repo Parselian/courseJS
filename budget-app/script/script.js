@@ -17,7 +17,8 @@ let salaryAmount = document.querySelector('.salary-amount'),
     start = document.querySelector('#start'),
     cancel = document.querySelector('#cancel'),
     periodAmount = document.querySelector('.period-amount'),
-    data = document.querySelector('data');
+    data = document.querySelector('.data'),
+    placeholderInputs = document.querySelectorAll('input[placeholder="Наименование"]');
 
     
     let appData = {
@@ -72,8 +73,15 @@ let salaryAmount = document.querySelector('.salary-amount'),
 
       },
       getExpensesBlock: function() {
-        let newExpensesItems = expensesItems[0].cloneNode(true);
-        newExpensesItems.setAttribute('value', '');
+        let newExpensesItems = expensesItems[0].cloneNode(true),
+            expensesChilds = newExpensesItems.childNodes;
+
+        for(let key in expensesChilds) {
+          if(expensesChilds[key].type === 'text') {
+            expensesChilds[key].value = '';
+          }
+        }
+
         expensesItems[0].parentNode.insertBefore(newExpensesItems, expensesAddBtn);
         expensesItems = document.querySelectorAll('.expenses-items');
 
@@ -172,7 +180,14 @@ let salaryAmount = document.querySelector('.salary-amount'),
         return appData.budgetMonth * periodSelect.value;
       },
       getIncomeBlock: function() {
-        let newIncomeItems = incomeItems[0].cloneNode(true);
+        let newIncomeItems = incomeItems[0].cloneNode(true),
+            incomeChilds = newIncomeItems.childNodes;
+
+        for(let key in incomeChilds) {
+          if(incomeChilds[key].type === 'text') {
+            incomeChilds[key].value = '';
+          }
+        }
         
         incomeItems[0].parentNode.insertBefore(newIncomeItems, incomeAddBtn);
         incomeItems = document.querySelectorAll('.income-items');
@@ -182,6 +197,16 @@ let salaryAmount = document.querySelector('.salary-amount'),
         }
       }
     };
+
+
+    data.addEventListener('input', function(e) {
+      let target = e.target;
+      if(target.placeholder === 'Наименование') {
+        target.value = target.value.replace(/[^А-я]/,'');
+      } else if( target.placeholder === 'Сумма' ) {
+        target.value = target.value.replace(/\D/g,'');
+      }
+    });
 
     salaryAmount.addEventListener('input', function() {
       if(salaryAmount === '') {
@@ -222,5 +247,5 @@ let salaryAmount = document.querySelector('.salary-amount'),
     }
     
     // showObjInfo(appData);
-    showExpensesString();
+    // showExpensesString();
     
