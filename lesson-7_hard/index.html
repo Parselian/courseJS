@@ -12,18 +12,3 @@
   <script src="script.js"></script>
 </body>
 </html>
-
-
-
-let list = document.querySelector('ul'),
-    button = document.querySelector('button');
-
-
-button.addEventListener('click', function() {
-  let input = document.querySelector('input').value,
-      elem = document.createElement('li');
-  
-  elem.textContent = input;
-  list.appendChild(elem);
-  elem = 0
-})
