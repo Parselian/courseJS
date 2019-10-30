@@ -214,7 +214,11 @@ let salaryAmount = document.querySelector('.salary-amount'),
     data.addEventListener('input', function(e) {
       let target = e.target;
       if(target.placeholder === 'Наименование') {
+<<<<<<< HEAD
         target.value = target.value.replace(/[^,.!?А-я\ ]/,'');
+=======
+        target.value = target.value.replace(/[^А-я]/,'');
+>>>>>>> 578c61e... сделал усложненку
       } else if( target.placeholder === 'Сумма' ) {
         target.value = target.value.replace(/\D/g,'');
       }
