@@ -202,7 +202,7 @@ let salaryAmount = document.querySelector('.salary-amount'),
     data.addEventListener('input', function(e) {
       let target = e.target;
       if(target.placeholder === 'Наименование') {
-        target.value = target.value.replace(/[^,.!?А-я\ ]/,'');
+        target.value = target.value.replace(/[^,.!:;?А-я\ ]/,'');
       } else if( target.placeholder === 'Сумма' ) {
         target.value = target.value.replace(/\D/g,'');
       }
