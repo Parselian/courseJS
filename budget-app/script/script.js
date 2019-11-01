@@ -45,19 +45,7 @@ let salaryAmount = document.querySelector('.salary-amount'),
         appData.getAddIncome();
         appData.getBudget();    
 
-<<<<<<< HEAD
         appData.showResult();
-=======
-        this.getExpenses();
-        this.getIncome();
-        this.getExpensesMonth();
-        this.getAddExpenses();
-        this.getAddIncome();
-        this.getBudget();    
-        this.showResult();
-
-        console.log('this: ', this);
->>>>>>> ecf1911... сделал правки по усложнёнке 8-го урока
 
         start.style.display = 'none';
         cancel.style.display = 'block';
@@ -214,11 +202,7 @@ let salaryAmount = document.querySelector('.salary-amount'),
     data.addEventListener('input', function(e) {
       let target = e.target;
       if(target.placeholder === 'Наименование') {
-<<<<<<< HEAD
         target.value = target.value.replace(/[^,.!?А-я\ ]/,'');
-=======
-        target.value = target.value.replace(/[^А-я]/,'');
->>>>>>> 578c61e... сделал усложненку
       } else if( target.placeholder === 'Сумма' ) {
         target.value = target.value.replace(/\D/g,'');
       }
