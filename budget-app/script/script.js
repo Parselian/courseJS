@@ -212,17 +212,15 @@ let appData = {
 			/* УДАЛЯЕМ ДОБАВЛЕННЫЕ БЛОКИ EXPENSES */
 			let expenses = document.querySelector('.expenses');
 
-
 			expensesItems.forEach(function(item) {
 				if(item.className === 'expenses-items') {
 					expenses.removeChild(item);
 				} 
 			});
-			console.log('expensesItems.length: ', expensesItems.length);
 
 			expensesAddBtn.style.display = 'block';
-			expenses.insertBefore(cloneExpensesItems, expensesAddBtn);
 			expensesItems = [];
+			expenses.insertBefore(cloneExpensesItems, expensesAddBtn);
 			expensesItems = document.querySelectorAll('.expenses-items');
 
 			/* УДАЛЯЕМ ДОБАВЛЕННЫЕ БЛОКИ INCOME */
@@ -232,13 +230,11 @@ let appData = {
 				if(item.className === 'income-items') {
 					income.removeChild(item);
 				} 
-				// console.log(item);
 			});
 
-
 			incomeAddBtn.style.display = 'block';
-			income.insertBefore(cloneIncomeItems, incomeAddBtn);
 			incomeItems = [];
+			income.insertBefore(cloneIncomeItems, incomeAddBtn);
 			incomeItems = document.querySelectorAll('.income-items');
 
 			/* АКТИВИРУЕМ ИНПУТЫ */
