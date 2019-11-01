@@ -209,20 +209,6 @@ let appData = {
 				}
 			}
 
-			/* УДАЛЯЕМ ДОБАВЛЕННЫЕ БЛОКИ EXPENSES */
-			let expenses = document.querySelector('.expenses');
-
-			expensesItems.forEach(function(item) {
-				if(item.className === 'expenses-items') {
-					expenses.removeChild(item);
-				} 
-			});
-
-			expensesAddBtn.style.display = 'block';
-			expensesItems = [];
-			expenses.insertBefore(cloneExpensesItems, expensesAddBtn);
-			expensesItems = document.querySelectorAll('.expenses-items');
-
 			/* УДАЛЯЕМ ДОБАВЛЕННЫЕ БЛОКИ INCOME */
 			let income = document.querySelector('.income');
 
@@ -237,9 +223,23 @@ let appData = {
 			income.insertBefore(cloneIncomeItems, incomeAddBtn);
 			incomeItems = document.querySelectorAll('.income-items');
 
+			/* УДАЛЯЕМ ДОБАВЛЕННЫЕ БЛОКИ EXPENSES */
+			let expenses = document.querySelector('.expenses');
+
+			expensesItems.forEach(function(item) {
+				if(item.className === 'expenses-items') {
+					expenses.removeChild(item);
+				} 
+			});
+
+			expensesAddBtn.style.display = 'block';
+			expensesItems = [];
+			expenses.insertBefore(cloneExpensesItems, expensesAddBtn);
+			expensesItems = document.querySelectorAll('.expenses-items');
+
 			/* АКТИВИРУЕМ ИНПУТЫ */
 			allInputs.forEach(function(item) {
-				item.value = null;
+				item.value = '';
 				item.removeAttribute('disabled');
 			});
 			periodSelect.value = 1;
