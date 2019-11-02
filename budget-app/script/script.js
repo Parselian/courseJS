@@ -198,14 +198,13 @@ let appData = {
 		},
 		reset: function() {
 			/* ОЧИЩАЕМ ОБЪЕКТ */
-			for(let key in appData) {
-			  if(typeof(appData[key]) !== 'object' && typeof(appData[key]) !== 'function') {
-					// console.log(key + ":" + typeof(appData[key]));
-					appData[key] = 0;
-				} else if(typeof(appData[key]) === 'object' && !(Array.isArray(appData[key]))) {
-					appData[key] = {};
-				} else if( Array.isArray(appData[key]) ) {
-					appData[key] = [];
+			for(let key in this) {
+			  if(typeof(this[key]) !== 'object' && typeof(this[key]) !== 'function') {
+					this[key] = 0;
+				} else if(typeof(this[key]) === 'object' && !(Array.isArray(this[key]))) {
+					this[key] = {};
+				} else if( Array.isArray(this[key]) ) {
+					this[key] = [];
 				}
 			}
 
