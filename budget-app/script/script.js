@@ -1,4 +1,5 @@
 let salaryAmount = document.querySelector('.salary-amount'),
+		income = document.querySelector('.income'),
 		incomeItems = document.querySelectorAll('.income-items'),
 		cloneIncomeItems = incomeItems[0].cloneNode(true),
     incomeAddBtn = document.querySelectorAll('button')[0],
@@ -49,16 +50,38 @@ let appData = {
 			this.getBudget();    
 			this.showResult();
 
-			// console.log('this: ', this);
-
 			cancel.style.display = 'block';
 			start.style.display = 'none';
 			allInputs.forEach(function(item) {
 				if(item.classList.contains('result-total')) {
 					item.disabled = false;
+				} else if(item.classList.contains('income-title') || item.classList.contains('income-amount')) {
+					item.disabled = true;
 				} else {
 					item.disabled = true;
 				}
+			});
+
+			// console.log(incomeItems[0].childNodes);			
+
+			incomeItems.forEach(function(item) {
+				let childs = item.childNodes;
+				childs.forEach(function(item) {
+					if(item.type = 'text') {
+						console.log(item);
+						item.disabled = true;
+					}
+				});
+			});
+
+			expensesItems.forEach(function(item) {
+				let childs = item.childNodes;
+				childs.forEach(function(item) {
+					if(item.type = 'text') {
+						console.log(item);
+						item.disabled = true;
+					}
+				});
 			});
 		},
 		showResult: function() {
@@ -209,7 +232,7 @@ let appData = {
 			}
 
 			/* УДАЛЯЕМ ДОБАВЛЕННЫЕ БЛОКИ INCOME */
-			let income = document.querySelector('.income');
+			// let income = document.querySelector('.income');
 
 			incomeItems.forEach(function(item) {
 				if(item.className === 'income-items') {
