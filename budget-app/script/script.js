@@ -281,8 +281,6 @@ let appData = {
 		}
 };
 
-
-
 data.addEventListener('input', function(e) {
 	let target = e.target;
 	if(target.placeholder === 'Наименование') {
