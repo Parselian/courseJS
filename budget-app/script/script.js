@@ -338,7 +338,6 @@ AppData.prototype.eventListeners = function() {
 
 const appData = new AppData();
 appData.eventListeners();
-// console.log('appData: ', appData);
 
 
 

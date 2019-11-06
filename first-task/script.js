@@ -49,7 +49,6 @@ DomElement.prototype.createElement = function() {
       case 37:
         elem.style.right = posRight + 10 + 'px';
         elem.style.left = posLeft - 10 + 'px';
-        console.log(posLeft);
         break;
       case 38:
         elem.style.top = posTop - 10 + 'px';
