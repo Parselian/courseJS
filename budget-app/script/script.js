@@ -48,14 +48,17 @@ AppData.prototype.start = function() {
 			
 	const incomeItems = document.querySelectorAll('.income-items');
 	const expensesItems = document.querySelectorAll('.expenses-items');
+	const addExpenses = addExpensesItem.value.split(',');
 
 	this.budget = +salaryAmount.value;
 
 	this.getCalculates(incomeItems, this.income, this.incomeMonth);
 	this.getCalculates(expensesItems, this.expenses);
 	this.getExpensesMonth();
-	this.getAddExpenses();
-	this.getAddIncome();
+	this.getAdds(addExpenses);
+	this.getAdds(addIncomeItem);
+	// this.getAddExpenses();
+	// this.getAddIncome();
 	this.getInfoDeposit();
 	this.getBudget();    
 	this.showResult();
@@ -170,7 +173,6 @@ AppData.prototype.getCalculates = function(items, currLoc, property) {
 };
 
 AppData.prototype.getAddExpenses = function() {
-	const addExpenses = addExpensesItem.value.split(',');
 
 	addExpenses.forEach( (item) => {
 		item = item.trim();
@@ -186,6 +188,24 @@ AppData.prototype.getAddIncome = function() {
 
 		if(item.value !== '') {
 			this.addIncome.push(itemValue);
+		}
+	});
+};
+
+AppData.prototype.getAdds = function(neededAdd) {
+
+	neededAdd.forEach( (item) => {
+		if( item !== '' && neededAdd === addIncomeItem ) {
+			const itemValue = item.value.trim();
+
+			if(item.value !== '') {
+				this.addIncome.push(itemValue);
+			}
+		} else {
+				item = item.trim();
+				if(item !== '') {
+					this.addExpenses.push(item);
+				}
 		}
 	});
 };
@@ -243,7 +263,7 @@ AppData.prototype.reset = function() {
 	}
 
 	/* УДАЛЯЕМ ДОБАВЛЕННЫЕ БЛОКИ INCOME */
-	let incomeItems = document.querySelectorAll('.income-items');	
+	const incomeItems = document.querySelectorAll('.income-items');	
 
 	incomeItems.forEach( (item) => {
 		const childs = item.childNodes;
