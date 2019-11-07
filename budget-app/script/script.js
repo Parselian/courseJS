@@ -172,26 +172,6 @@ AppData.prototype.getCalculates = function(items, currLoc, property) {
 
 };
 
-AppData.prototype.getAddExpenses = function() {
-
-	addExpenses.forEach( (item) => {
-		item = item.trim();
-		if(item !== '') {
-			this.addExpenses.push(item);
-		}
-	});
-};
-
-AppData.prototype.getAddIncome = function() {
-	addIncomeItem.forEach((item) => {
-		const itemValue = item.value.trim();
-
-		if(item.value !== '') {
-			this.addIncome.push(itemValue);
-		}
-	});
-};
-
 AppData.prototype.getAdds = function(neededAdd) {
 
 	neededAdd.forEach( (item) => {
@@ -263,7 +243,7 @@ AppData.prototype.reset = function() {
 	}
 
 	/* УДАЛЯЕМ ДОБАВЛЕННЫЕ БЛОКИ INCOME */
-	const incomeItems = document.querySelectorAll('.income-items');	
+	let incomeItems = document.querySelectorAll('.income-items');	
 
 	incomeItems.forEach( (item) => {
 		const childs = item.childNodes;
