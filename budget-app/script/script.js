@@ -51,8 +51,6 @@ AppData.prototype.start = function() {
 
 	this.budget = +salaryAmount.value;
 
-	// this.getExpenses();
-	// this.getIncome();
 	this.getCalculates(incomeItems, this.income, this.incomeMonth);
 	this.getCalculates(expensesItems, this.expenses);
 	this.getExpensesMonth();
@@ -137,36 +135,6 @@ AppData.prototype.getNewBlocks = function(e) {
 
 	if( itemsList.length === 2 ) {
 		currBtn.style.display = 'none';
-	}
-};
-
-AppData.prototype.getExpenses = function() {
-	const expensesItems = document.querySelectorAll('.expenses-items');
-
-	expensesItems.forEach( (item) => {
-		const itemExpenses = item.querySelector('input.expenses-title').value,
-					cashExpenses = item.querySelector('.expenses-amount').value;
-
-		if(itemExpenses !== 0 && cashExpenses !== 0 ) {
-			this.expenses[itemExpenses] = cashExpenses;
-		}
-	});
-};
-
-AppData.prototype.getIncome = function() {
-	const incomeItems = document.querySelectorAll('.income-items');
-
-	incomeItems.forEach( (item) => {
-		const incomeTitle = item.querySelector('.income-title').value,
-					incomeAmount = item.querySelector('.income-amount').value;
-
-		if( incomeTitle !== '' && incomeAmount !== '' ) {
-			this.income[incomeTitle] = +incomeAmount;
-		}
-	});
-
-	for(let key in this.income) {
-		this.incomeMonth += +this.income[key];
 	}
 };
 
@@ -361,7 +329,7 @@ AppData.prototype.eventListeners = function() {
 			depositAmount.style.display = 'inline-block';
 			this.deposit = true;
 			depositBank.addEventListener('change', function () {
-				let selectIndex = this.options[this.selectedIndex].value;
+				const selectIndex = this.options[this.selectedIndex].value;
 				if ( selectIndex === 'other' ) {
 					depositPercent.style.display = 'inline-block';
 					depositPercent.value = '';
