@@ -47,5 +47,5 @@ window.addEventListener('DOMContentLoaded', () => {
     intervalId;
   }
 
-timer('7 november 2019', '#timer-hours', '#timer-minutes', '#timer-seconds');
+timer('10 november 2019', '#timer-hours', '#timer-minutes', '#timer-seconds');
 });
