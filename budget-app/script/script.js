@@ -56,8 +56,6 @@ class AppData {
 		this.getExpensesMonth();
 		this.getAdds(addExpenses);
 		this.getAdds(addIncomeItem);
-		// this.getAddExpenses();
-		// this.getAddIncome();
 		this.getInfoDeposit();
 		this.getBudget();    
 		this.showResult();
@@ -106,6 +104,15 @@ class AppData {
 		periodSelect.addEventListener('input', () => {
 			inputValues[5].value = this.calcSavedMoney();
 		});
+
+		let counter = 0;
+		inputValues.forEach((item) => {
+			localStorage.setItem(counter, item.value);
+			console.log(item.value);
+			this.setCookie(counter, item.value, 2020, 11, 1);
+			counter++;
+		});	
+		
 	}
 
 	getNewBlocks(e) {
@@ -345,8 +352,25 @@ class AppData {
 			this.reset();
 			cancel.style.display = 'none';
 			start.style.display = 'block';
+			localStorage.clear();
 			start.removeEventListener('click', bind);
 		});
+	}
+
+	setCookie(key, value, year, month, day, domain, path, secure) {
+		let cookieStr = `${encodeURI(key)}=${encodeURI(value)}`;
+
+		if(year) {
+			const expires = new Date(year, month-1, day);
+			cookieStr += `; expires=${expires.toGMTString()}`;
+		}
+
+		cookieStr += domain ? `; domain=${encodeURI(domain)}` : ``;
+		cookieStr += path ?  `; path=${encodeURI(path)}` : ``;
+		cookieStr += secure ? `; secure` : ``;
+
+		document.cookie = cookieStr;
+		console.log(decodeURI(cookieStr));
 	}
 }
 
@@ -356,6 +380,29 @@ const test = new AppData();
 test.eventListeners();
 
 
+function getLocalStorage() {
+	let counter = 0;
+	inputValues.forEach((item) => {
+		item.value = localStorage.getItem(counter);
+		counter++;
+	});
+
+	cancel.style.display = 'block';
+	start.style.display = 'none';
+
+	const allInputs = document.querySelectorAll('input[type="text"]');
+	allInputs.forEach((item) => {
+		if(item.classList.contains('result-total')) {
+			item.disabled = false;
+		} else if(item.classList.contains('income-title') || item.classList.contains('income-amount')) {
+			item.disabled = true;
+		} else {
+			item.disabled = true;
+		}
+	});
+}
+
+getLocalStorage();
 
 function showObjInfo(obj) {
 	for( let key in obj ) {
