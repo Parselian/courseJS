@@ -112,6 +112,8 @@ class AppData {
 			this.setCookie(counter, item.value, 2020, 11, 1);
 			counter++;
 		});	
+
+		this.setCookie('isLoad', true, 2020, 11, 1);
 		
 	}
 
