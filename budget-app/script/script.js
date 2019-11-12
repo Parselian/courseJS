@@ -171,12 +171,10 @@ class AppData {
 		if( property === this.incomeMonth ) {
 			for(let key in this.income) {
 					this.incomeMonth += +this.income[key];
-					console.log(currLoc[key]);
 				} 
 		} else {
 			return;
 		}
-		console.log(this);
 	}
 
 	getAdds(neededAdd) {
@@ -316,6 +314,30 @@ class AppData {
 		});  
 		
 		const bind = this.start.bind(this);
+
+
+
+
+		let allCookies = document.cookie,
+				counter = 0;
+
+		allCookies = allCookies.split('; ');
+		// console.log('allCookies: ', allCookies);
+
+		for (; counter < 7; counter++ ) {
+			let local = localStorage.getItem(counter),
+			item = allCookies[counter] + '';
+			item = item.slice(2);
+
+
+			if(item != local) {
+				localStorage.clear();
+				document.cookie = `isLoad=true; max-age=0`;
+				for(counter = 0; counter < 7; counter++) {
+					document.cookie = `${counter}=${item}; max-age=0`;
+				}
+			}
+		}
 		
 		salaryAmount.addEventListener('change', () => {
 			if(salaryAmount === '' || salaryAmount === null) {
@@ -357,54 +379,59 @@ class AppData {
 			localStorage.clear();
 			start.removeEventListener('click', bind);
 		});
+
 	}
 
 	setCookie(key, value, year, month, day, domain, path, secure) {
-		let cookieStr = `${encodeURI(key)}=${encodeURI(value)}`;
+		let cookieStr = `${key}=${value}`;
 
 		if(year) {
 			const expires = new Date(year, month-1, day);
 			cookieStr += `; expires=${expires.toGMTString()}`;
 		}
 
-		cookieStr += domain ? `; domain=${encodeURI(domain)}` : ``;
-		cookieStr += path ?  `; path=${encodeURI(path)}` : ``;
+		cookieStr += domain ? `; domain=${domain}` : ``;
+		cookieStr += path ?  `; path=${path}` : ``;
 		cookieStr += secure ? `; secure` : ``;
 
 		document.cookie = cookieStr;
-		console.log(decodeURI(cookieStr));
 	}
 }
 
 // const appData = new AppData();
 const test = new AppData();
 
-test.eventListeners();
-
 
 function getLocalStorage() {
+	const allInputs = document.querySelectorAll('input[type="text"]');
 	let counter = 0;
 	inputValues.forEach((item) => {
 		item.value = localStorage.getItem(counter);
 		counter++;
-	});
 
-	cancel.style.display = 'block';
-	start.style.display = 'none';
-
-	const allInputs = document.querySelectorAll('input[type="text"]');
-	allInputs.forEach((item) => {
-		if(item.classList.contains('result-total')) {
-			item.disabled = false;
-		} else if(item.classList.contains('income-title') || item.classList.contains('income-amount')) {
-			item.disabled = true;
-		} else {
-			item.disabled = true;
+		if(localStorage.getItem(counter) != null) {
+			cancel.style.display = 'block';
+			start.style.display = 'none';
+			
+			allInputs.forEach((item) => {
+				if(item.classList.contains('result-total')) {
+					item.disabled = false;
+				} else if(item.classList.contains('income-title') || item.classList.contains('income-amount')) {
+					item.disabled = true;
+				} else {
+					item.disabled = true;
+				}
+			});
 		}
 	});
 }
 
+
+
+test.eventListeners();
 getLocalStorage();
+
+
 
 function showObjInfo(obj) {
 	for( let key in obj ) {
