@@ -1,3 +1,11 @@
+.visible {
+  display: block !important;
+}
+
+.hide {
+  display: none !important;
+}
+
 * {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
@@ -5,6 +13,7 @@
   padding: 0;
   list-style-type: none;
 }
+
 
 input:focus {
   outline: none;
@@ -132,13 +141,29 @@ body .main .input-cities label {
   width: 100%;
 }
 
+.dropdown-lists__list--default {
+  display: none;
+}
+
 .dropdown-lists__list--select {
+  display: none;
+}
+
+.dropdown-lists__list--select > .dropdown-lists__col > .dropdown-lists__countryBlock {
   display: none;
 }
 
 .dropdown-lists__list--autocomplete {
   display: none;
 }
+
+.dropdown-lists__list--autocomplete > .dropdown-lists__col > .dropdown-lists__countryBlock > .dropdown-lists__line {
+  display: none;
+}
+
+/* .dropdown-lists__line--nothing {
+  display: none;
+} */
 
 .dropdown-lists__total-line, .dropdown-lists__line {
   display: -webkit-box;
@@ -149,6 +174,10 @@ body .main .input-cities label {
           justify-content: space-between;
   padding: 5px 15px;
   cursor: pointer;
+}
+
+.dropdown-lists__line {
+  /* display: none; */
 }
 
 .dropdown-lists__country {
