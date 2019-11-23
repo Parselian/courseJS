@@ -11,6 +11,17 @@
   pointer-events: none;
 }
 
+.spinner {
+  display: none;
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  top: 50%;
+  border: 2px dashed #fff;
+  border-radius: 25px;
+  transform: translateY(-25px);
+}
+
 * {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
@@ -133,17 +144,19 @@ body .main .input-cities label {
   background: #fff;
   max-height: 300px;
   overflow: auto;
+  overflow-x: hidden;
 }
 
 .dropdown-lists {
-  width: 100%;
+  width: 100vw;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
 }
 
 .dropdown-lists__list {
-  width: 100%;
+  width: 415px;
+  /* width: 100%; */
 }
 
 .dropdown-lists__list--default {
