@@ -10,8 +10,9 @@ window.addEventListener('DOMContentLoaded', () => {
       dropdownDefault = dropdown.querySelector('.dropdown-lists__list--default'),
       dropdownSelect = dropdown.querySelector('.dropdown-lists__list--select'),
       dropdownAutocomplete = dropdown.querySelector('.dropdown-lists__list--autocomplete');
-
-  // dropdownSelect.style.transform = `translateX(100%)`;
+      const defaultContainer = dropdownDefault.querySelector('.dropdown-lists__col'),
+      selectContainer = dropdownSelect.querySelector('.dropdown-lists__col'),
+      autocompleteContainer = dropdownAutocomplete.querySelector('.dropdown-lists__col');
 
   //создание и анимирование спиннера
   let intervalId;
@@ -33,95 +34,21 @@ window.addEventListener('DOMContentLoaded', () => {
     }, 20);
   };
 
-  activateSpinner();
+  //setCookies
+  const setCookies = () => {
+    let getLocale;
+    // console.log(document.cookie.includes('locale'));
+    if( !document.cookie.includes('locale') ) {
+      getLocale = prompt('Введите вашу локаль: RU/EN/DE', '').toUpperCase();
 
-  //получение данных с JSON файла
-  const getData = () => {
-    const dropdownCountryBlock = document.createElement('div'),
-          dropdownTotalLine = document.createElement('div'),
-          dropdownListsCountry = document.createElement('div'),
-          dropdownListsCountryCount = document.createElement('div'),
-          dropdownListsLine = document.createElement('div'),
-          dropdownListsCity = document.createElement('div'),
-          dropdownListsCityCount = document.createElement('div');
-
-    dropdownCountryBlock.className = 'dropdown-lists__countryBlock';
-    dropdownTotalLine.className = 'dropdown-lists__total-line';
-    dropdownListsCountry.className = 'dropdown-lists__country';
-    dropdownListsCountryCount.className = 'dropdown-lists__count';
-    dropdownListsLine.className = 'dropdown-lists__line';
-    dropdownListsCity.className = 'dropdown-lists__city';
-    dropdownListsCityCount.className = 'dropdown-lists__count';
-
-    dropdownTotalLine.appendChild(dropdownListsCountry);
-    dropdownTotalLine.appendChild(dropdownListsCountryCount);
-    dropdownListsLine.appendChild(dropdownListsCity);
-    dropdownListsLine.appendChild(dropdownListsCityCount);
-    dropdownCountryBlock.appendChild(dropdownTotalLine);
-
-    const request = new XMLHttpRequest();
-    
-    request.open('GET', './db_cities.json');
-    request.setRequestHeader('Content-Type', 'application/json');
-    request.send();
-    
-    const test = (response) => {
-      const defaultContainer = dropdownDefault.querySelector('.dropdown-lists__col'),
-          selectContainer = dropdownSelect.querySelector('.dropdown-lists__col'),
-          autocompleteContainer = dropdownAutocomplete.querySelector('.dropdown-lists__col');
-      const data = JSON.parse(response);
-
-      for( let key in data ) {
-        if(key === 'RU') {
-          // console.log(data[key]);
-          data[key].forEach( (item) => {
-            let itemBlock = dropdownCountryBlock.cloneNode(true);
-
-            for( let i = 0; i < itemBlock.children.length; i++) {
-              if(itemBlock.children[i].className === 'dropdown-lists__total-line') {
-                itemBlock.children[i].children[0].textContent = item.country;
-                itemBlock.children[i].children[1].textContent = item.count;
-              }
-            }
-
-            item.cities.forEach(item => {
-              let cityBlock = dropdownListsLine.cloneNode(true);
-              cityBlock.children[0].textContent = item.name;
-              cityBlock.children[1].textContent = item.count;
-              itemBlock.appendChild(cityBlock);
-              let clone = cityBlock.cloneNode(true);
-              autocompleteContainer.appendChild(clone);
-            });
-
-            defaultContainer.append(itemBlock);
-            let clone = itemBlock.cloneNode(true);
-            selectContainer.append(clone);
-            // console.log('item', item);
-          });
-        }
-      }
-
-      toggleDropdownLists(data);
-    };
-
-    request.addEventListener('readystatechange', () => {
-      if ( request.readyState !== 4 ) {
-        return;
-      }
-
-      if( request.status === 200 ) {
-        let response = request.responseText;
-        clearInterval(intervalId);
-        inputCities.classList.remove('hide');
-        test(response);
+      if(getLocale == null || getLocale == '') {
+        document.cookie = `locale=RU; path=/; max-age=2592000`;
       } else {
-        console.error(request.statusText);
+        document.cookie = `locale=${getLocale}; path=/; max-age=2592000`;
       }
-    });
+    }
   };
 
-  getData();
-  
   //управление dropdown списками
   const toggleDropdownLists = (data) => {
     const defaultCountryBlocks = dropdownDefault.querySelectorAll('.dropdown-lists__countryBlock'),
@@ -141,6 +68,7 @@ window.addEventListener('DOMContentLoaded', () => {
       autocompleteNothingBlock.classList.remove('visible');
     };
 
+    //анимация переключения default/select списков
     const slideLists = (target) => {
       let intervalId, 
           counter = 0,
@@ -150,26 +78,20 @@ window.addEventListener('DOMContentLoaded', () => {
         counter += 2;
         counter2 += 2;
 
-        if(target.closest('.dropdown-lists__list--default')) {
+        if( target.closest('.dropdown-lists__list--default') ) {
           if( counter <= 100 ) {
             dropdownDefault.style.transform = `translateX(-${counter}%)`;
             dropdownSelect.style.transform = `translateX(-${counter}%)`;
           } else {
-            dropdownDefault.style.cssText = `
-              height: 1px;
-              transform: translateX(-${counter}%);
-              overflow-y: hidden;
-            `;
+            dropdownDefault.classList.add('default_slided');
             counter = -100;
             clearInterval(intervalId);
           }
         }
 
         if( target.closest('.dropdown-lists__list--select') ) { 
-          dropdownDefault.style.cssText = `
-            height: auto;
-            overflow-y: auto;
-          `;
+          dropdownDefault.classList.remove('default_slided');
+
           if( counter2 <= 0 ) {
             dropdownDefault.style.transform = `translateX(${counter2}%)`;
             dropdownSelect.style.transform = `translateX(${counter2}%)`;
@@ -181,6 +103,7 @@ window.addEventListener('DOMContentLoaded', () => {
             clearInterval(intervalId);
           }
         }
+
         intervalId;
       }, 10);
 
@@ -233,8 +156,8 @@ window.addEventListener('DOMContentLoaded', () => {
     // открытие default блока со странами
     inputCities.addEventListener('click', (e) => {
       let target = e.target;
-      // console.log('target: ', target);
 
+      //если таргет == select - стартуем ф-цию открытия нужного select
       if(target.closest('.dropdown-lists__total-line')) {
         target = target.closest('.dropdown-lists__countryBlock');
         
@@ -250,6 +173,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
       target = e.target;
       
+      //if target == input then hide all blocks and open dropdownDefault
       if(target.id === 'select-cities') {
         hideBlocks();
         dropdownDefault.classList.add('visible');
@@ -258,6 +182,7 @@ window.addEventListener('DOMContentLoaded', () => {
         hideBlocks();
       }  
 
+      //if target == city/country => hide allBlocks and open autocomplete
       if( target.matches('.dropdown-lists__city, .dropdown-lists__country') ) {
         label.className = 'label';
         hideBlocks();
@@ -267,17 +192,15 @@ window.addEventListener('DOMContentLoaded', () => {
         closeBtn.classList.add('visible');
       }
 
+      //if target == city => activate searchBtn
       if( target.matches('.dropdown-lists__city') ) {
         // searchBtn.href = `https://ru.wikipedia.org/wiki/${selectCities.value}`;
         searchBtn.classList.remove('disabled');
       }
       
+      /* if target == closeBtn => clear input, hide allBlocks, open defList, disable searchBtn and hide closeBtn */
       if( target === closeBtn ) {
-        dropdownDefault.style.cssText = `
-          height: auto;
-          transform: translateX(0);
-          overflow-y: auto;
-        `;
+        dropdownDefault.classList.remove('default_slided');
         selectCities.value = '';
         label.className = '';
         closeBtn.classList.remove('visible');
@@ -305,17 +228,143 @@ window.addEventListener('DOMContentLoaded', () => {
     });
 
     //Привязка ссылки на Вики выбранного города
-    searchBtn.addEventListener('click', (e) => {
+    searchBtn.addEventListener('click', () => {
       for( let key in data ) {
-        // console.log(data[key]);
-        data[key].forEach( (item) => {
-          item.cities.forEach( item2 => {
-            if(item2.name.toLowerCase() === selectCities.value) {
-              searchBtn.href = item2.link;
-            }
-          });
+        data[key].cities.forEach( (item) => {
+          if(item.name.toLowerCase() === selectCities.value) {
+            searchBtn.href = item.link;
+          }
         });
       }
     });
   };
+
+  const insertBlocks = (block) => {
+    const dropdownCountryBlock = document.createElement('div'),
+          dropdownTotalLine = document.createElement('div'),
+          dropdownListsCountry = document.createElement('div'),
+          dropdownListsCountryCount = document.createElement('div'),
+          dropdownListsLine = document.createElement('div'),
+          dropdownListsCity = document.createElement('div'),
+          dropdownListsCityCount = document.createElement('div');
+
+    dropdownCountryBlock.className = 'dropdown-lists__countryBlock';
+    dropdownTotalLine.className = 'dropdown-lists__total-line';
+    dropdownListsCountry.className = 'dropdown-lists__country';
+    dropdownListsCountryCount.className = 'dropdown-lists__count';
+    dropdownListsLine.className = 'dropdown-lists__line';
+    dropdownListsCity.className = 'dropdown-lists__city';
+    dropdownListsCityCount.className = 'dropdown-lists__count';
+
+    dropdownTotalLine.appendChild(dropdownListsCountry);
+    dropdownTotalLine.appendChild(dropdownListsCountryCount);
+    dropdownListsLine.appendChild(dropdownListsCity);
+    dropdownListsLine.appendChild(dropdownListsCityCount);
+    dropdownCountryBlock.appendChild(dropdownTotalLine);
+
+    block.forEach( (item) => {
+      let itemBlock = dropdownCountryBlock.cloneNode(true);
+
+      if(itemBlock.children[0].className === 'dropdown-lists__total-line') {
+        itemBlock.children[0].children[0].textContent = item.country;
+        itemBlock.children[0].children[1].textContent = item.count;
+      }
+
+      item.cities.forEach(item => {
+        let cityBlock = dropdownListsLine.cloneNode(true);
+        cityBlock.children[0].textContent = item.name;
+        cityBlock.children[1].textContent = item.count;
+
+        itemBlock.appendChild(cityBlock);
+
+        let clone = cityBlock.cloneNode(true);
+        autocompleteContainer.appendChild(clone);
+      });
+
+
+      if( document.cookie.slice(7,9) === 'EN' && itemBlock.children[0].children[0].textContent === 'United Kingdom' ) {
+        defaultContainer.prepend(itemBlock);
+        let clone = itemBlock.cloneNode(true);
+        selectContainer.prepend(clone);
+      } else if( document.cookie.slice(7,9) === 'RU' && itemBlock.children[0].children[0].textContent === 'Russia' ) {
+        defaultContainer.prepend(itemBlock);
+        let clone = itemBlock.cloneNode(true);
+        selectContainer.prepend(clone);
+      } else if( document.cookie.slice(7,9) === 'DE' && itemBlock.children[0].children[0].textContent === 'Deutschland' ) {
+        defaultContainer.prepend(itemBlock);
+        let clone = itemBlock.cloneNode(true);
+        selectContainer.prepend(clone);
+      } else {
+        defaultContainer.append(itemBlock);
+        let clone = itemBlock.cloneNode(true);
+        selectContainer.append(clone);
+      }
+    });
+
+    toggleDropdownLists(block);
+  };
+
+  //получение данных с JSON файла
+  const getData = () => {
+
+    setCookies();
+    activateSpinner();
+
+    if(!!localStorage.getItem('data')) {
+
+      let data = localStorage.getItem('data');
+
+      data = JSON.parse(data);
+      insertBlocks(data);
+
+      clearInterval(intervalId);
+      inputCities.classList.remove('hide');
+    } else {
+      const request = new XMLHttpRequest();
+      
+      request.open('GET', './db_cities.json');
+      request.setRequestHeader('Content-Type', 'application/json');
+      request.send();
+      
+      const test = (response) => {
+        const data = JSON.parse(response);
+
+        const addChosenBlocks = (key) => {
+          data[key] = JSON.stringify(data[key]);
+          localStorage.setItem('data', data[key]);
+          data[key] = JSON.parse(data[key]);
+
+          insertBlocks(data[key]);
+        };
+
+        for( let key in data ) {
+          if(document.cookie.includes('locale=EN') && key === 'EN') {
+            addChosenBlocks(key);
+          } else if( document.cookie.includes('locale=RU') && key === 'RU' ) {
+            addChosenBlocks(key);
+          } else if( document.cookie.includes('locale=DE') && key === 'DE' ) {
+            addChosenBlocks(key);
+          }
+        }
+      };
+
+      request.addEventListener('readystatechange', () => {
+        if ( request.readyState !== 4 ) {
+          return;
+        }
+
+        if( request.status === 200 ) {
+          let response = request.responseText;
+          clearInterval(intervalId);
+          inputCities.classList.remove('hide');
+          test(response);
+        } else {
+          console.error(request.statusText);
+        }
+      });
+    }
+  };
+
+  getData();
+  
 });

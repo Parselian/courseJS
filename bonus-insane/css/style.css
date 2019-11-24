@@ -11,6 +11,12 @@
   pointer-events: none;
 }
 
+.default_slided {
+  height: 1px;
+  transform: translateX(-100%);
+  overflow-y: hidden;
+}
+
 .spinner {
   display: none;
   width: 50px;
