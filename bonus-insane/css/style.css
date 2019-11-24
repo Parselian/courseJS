@@ -185,10 +185,6 @@ body .main .input-cities label {
   display: none;
 }
 
-/* .dropdown-lists__line--nothing {
-  display: none;
-} */
-
 .dropdown-lists__total-line, .dropdown-lists__line {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -200,10 +196,6 @@ body .main .input-cities label {
   cursor: pointer;
 }
 
-.dropdown-lists__line {
-  /* display: none; */
-}
-
 .dropdown-lists__country {
   font-weight: 700;
   font-size: 18px;
@@ -213,7 +205,11 @@ body .main .input-cities label {
   font-style: italic;
 }
 
-.dropdown-lists__city--ip {
+/* .dropdown-lists__city--ip {
+  color: orange;
+} */
+
+.dropdown-lists__line:hover {
   color: orange;
 }
 

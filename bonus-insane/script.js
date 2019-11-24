@@ -105,7 +105,7 @@ window.addEventListener('DOMContentLoaded', () => {
         }
 
         intervalId;
-      }, 10);
+      }, 5);
 
     };
 
@@ -177,6 +177,8 @@ window.addEventListener('DOMContentLoaded', () => {
       if(target.id === 'select-cities') {
         hideBlocks();
         dropdownDefault.classList.add('visible');
+        dropdownDefault.classList.remove('default_slided');
+        dropdownDefault.style.transform = 'translateX(0)';
       } else if(target.matches('.button')) {
         selectCities.value = '';
         hideBlocks();
@@ -200,12 +202,15 @@ window.addEventListener('DOMContentLoaded', () => {
       
       /* if target == closeBtn => clear input, hide allBlocks, open defList, disable searchBtn and hide closeBtn */
       if( target === closeBtn ) {
-        dropdownDefault.classList.remove('default_slided');
         selectCities.value = '';
         label.className = '';
         closeBtn.classList.remove('visible');
+
         hideBlocks();
-        dropdownDefault.classList.add('visible');           
+
+        // dropdownDefault.classList.add('visible');           
+        dropdownDefault.classList.remove('default_slided');
+        dropdownDefault.style.transform = 'translateX(0)';
         searchBtn.classList.add('disabled');
         searchBtn.href = '#';
       }
@@ -224,6 +229,8 @@ window.addEventListener('DOMContentLoaded', () => {
         closeBtn.classList.remove('visible');
         hideBlocks();
         dropdownDefault.classList.add('visible');
+        searchBtn.href = '#';
+        searchBtn.classList.add('disabled');
       }
     });
 
@@ -239,6 +246,7 @@ window.addEventListener('DOMContentLoaded', () => {
     });
   };
 
+  //добавление блоков с контентом
   const insertBlocks = (block) => {
     const dropdownCountryBlock = document.createElement('div'),
           dropdownTotalLine = document.createElement('div'),
@@ -366,5 +374,4 @@ window.addEventListener('DOMContentLoaded', () => {
   };
 
   getData();
-  
 });
