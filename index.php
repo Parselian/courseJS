@@ -9,15 +9,15 @@
 </head>
 <body>
 
-  <div class="wrap wrap-dog">
-    <iframe class="frame frame-dog" src="" frameborder="0"></iframe>
+  <form class="wrap wrap-dog">
+    <iframe class="frame frame-dog" src="" frameborder="0" allowfullscreen="" scrolling="no"></iframe>
     <button class="button dog-btn" type="submit">Doge</button>
-  </div>
+  </form>
 
-  <div class="wrap wrap-cat">
-    <iframe class="frame frame-cat" src="" frameborder="0"></iframe>
+  <form class="wrap wrap-cat">
+    <iframe class="frame frame-cat" src="" frameborder="0" allowfullscreen="" scrolling="no"></iframe>
     <button class="button cat-btn" type="submit">Cat</button>
-  </div>
+  </form>
   
   <script src="script.js"></script>
 </body>

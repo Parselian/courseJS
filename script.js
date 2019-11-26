@@ -4,31 +4,42 @@ window.addEventListener('DOMContentLoaded', () => {
   const dogFrame = document.querySelector('.frame-dog'),
         catFrame = document.querySelector('.frame-cat');
 
-  const addContent = (url, frame) => {
-    return fetch(url, {
-      method: 'GET',
-      credentials: 'same-origin',  
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    });
-  }
+  const addContent = (url) => {
+    return fetch(url);
+  };
 
-  document.body.addEventListener('click', (e) => {
+  document.body.addEventListener('submit', (e) => {
+    e.preventDefault();
     const target = e.target;
 
-    if(target.matches('.dog-btn')) {
-      addContent('https://random.dog/woof.json', dogFrame)
+    if(target.matches('.wrap-dog')) {
+      addContent('https://random.dog/woof.json')
         .then((response) => {
-          if(response.status !== 20) {
-            throw 'error network status isn`t 200';
-          } 
+          if(response.status !== 200) {
+            throw 'error';
+          }
+          return response.json();
+        })
+        .then((response) => {
+          dogFrame.src = response.url;
         })
         .catch((error) => {
           console.error(error);
         });
-    } else if(target.matches('.cat-btn')) {
-      addContent('https://aws.random.cat/meow', catFrame);
+    } else if(target.matches('.wrap-cat')) {
+      addContent('https://aws.random.cat/meow')
+      .then((response) => {
+        if(response.status !== 200) {
+          throw 'error';
+        }
+        return response.json();
+      })
+      .then((response) => {
+        catFrame.src = response.file;
+      })
+      .catch((error) => {
+        console.error(error);
+      });
     }
   })
 })
