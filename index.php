@@ -10,12 +10,12 @@
 <body>
 
   <form class="wrap wrap-dog">
-    <iframe class="frame frame-dog" src="" frameborder="0" allowfullscreen="" scrolling="no"></iframe>
+    <iframe class="frame frame-dog" src="" frameborder="0" allowfullscreen=""></iframe>
     <button class="button dog-btn" type="submit">Doge</button>
   </form>
 
   <form class="wrap wrap-cat">
-    <iframe class="frame frame-cat" src="" frameborder="0" allowfullscreen="" scrolling="no"></iframe>
+    <iframe class="frame frame-cat" src="" frameborder="0" allowfullscreen=""></iframe>
     <button class="button cat-btn" type="submit">Cat</button>
   </form>
   
