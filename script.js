@@ -1,4 +1,4 @@
-window.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', () => {
   'use_strict';
 
   const cardWrap = document.querySelector('.wrap'), 
@@ -9,9 +9,10 @@ window.addEventListener('DOMContentLoaded', () => {
 
     for(let key in data) {
       const cloneCard = card.cloneNode('true');
+      console.log(cloneCard);
 
       //filling card-img
-      /* cloneCard.children[0].children[0].src = data[key].photo; */
+      cloneCard.children[0].children[0].src = data[key].photo;
       cloneCard.children[0].children[1].textContent = data[key].name;
       cloneCard.children[0].children[2].children[0].textContent = `${data[key].species}, ${data[key].genger}`;
       cloneCard.children[0].children[2].children[2].textContent = `(${data[key].birthDay} - ${data[key].deathDay}`;

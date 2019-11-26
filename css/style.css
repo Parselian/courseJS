@@ -18,9 +18,9 @@ body {
   box-shadow: 0px 4px 36px 0px rgba(51,51,51,0.2);
 }
 
-.card:first-child {
+/* .card:first-child {
   display: none;
-}
+} */
 
 .card:nth-child(4n) {
   margin-right: 0;
