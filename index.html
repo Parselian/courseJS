@@ -7,10 +7,15 @@
   <link rel="stylesheet" href="css/reset.css">
   <link rel="stylesheet" href="css/bootstrap-grid.min.css">
   <link rel="stylesheet" href="css/burger.css">
+  <link rel="stylesheet" href="css/preloader.css">
   <link rel="stylesheet" href="css/style.css">
   <title>Document</title>
 </head>
 <body>
+
+  <div id="preloader">
+    <div id="loader"></div>
+  </div>
   
   <header class="header">
     <div class="container header-wrap">
@@ -19,7 +24,7 @@
       </h2>
       <!-- /.header__title -->
 
-      <svg class="ham hamRotate ham4" viewBox="0 0 100 100" width="60" onclick="this.classList.toggle('active')">
+      <svg class="ham hamRotate ham4 header-burger__btn" viewBox="0 0 100 100" width="60" onclick="this.classList.toggle('active')">
         <path
           class="line top"
           d="m 70,33 h -40 c 0,0 -8.5,-0.149796 -8.5,8.5 0,8.649796 8.5,8.5 8.5,8.5 h 20 v -20" />
@@ -30,84 +35,22 @@
           class="line bottom"
           d="m 30,67 h 40 c 0,0 8.5,0.149796 8.5,-8.5 0,-8.649796 -8.5,-8.5 -8.5,-8.5 h -20 v 20" />
       </svg>
+
+      <ul class="burger-menu">
+        <div class="burger-menu__close">&times;</div>
+        <li class="burger-menu__item_all">All</li>
+      </ul>
+      <!-- /.burger-menu -->
     </div>
     <!-- /.container wrap -->
   </header>
   <!-- /.header -->
 
   <section class="container wrap">
-    <div class="card">
-      <div class="card-img">
-        <img src="" alt="Супергерой" class="card-img__img">
-
-        <h2 class="card-img__title"></h2>
-        <!-- /.card-img__title -->
-
-        <div class="card-img__info">
-          <div class="card-img__species"></div>
-          <!-- /.card-img__species -->
-          <div class="card-img__gender"></div>
-          <!-- /.card-img__gender -->
-          <div class="card-img__date">
-            <span class="card-img__date-born"></span> 
-            <span class="card-img__date-death"></span>
-          </div>
-          <!-- /.card-img__date -->
-        </div>
-        <!-- /.card-img__info -->
-      </div>
-      <!-- /.card-img -->
-
-      <div class="card-info">
-        <div class="card-info-list">
-          <div class="card-info-list__title">Name:</div>
-          <!-- /.card-info-list__title -->
-          <div class="card-info-list__text">
-          </div>
-          <!-- /.card-info-list__text -->
-        </div>
-        <!-- /.card-info-list -->
-
-        <div class="card-info-list">
-          <div class="card-info-list__title">Status:</div>
-          <!-- /.card-info-list__title -->
-          <div class="card-info-list__text"></div>
-          <!-- /.card-info-list__text -->
-        </div>
-        <!-- /.card-info-list -->
-
-        <div class="card-info-list">
-          <div class="card-info-list__title">Actor:</div>
-          <!-- /.card-info-list__title -->
-          <div class="card-info-list__text"></div>
-          <!-- /.card-info-list__text -->
-        </div>
-        <!-- /.card-info-list -->
-
-        <div class="card-info-list">
-          <div class="card-info-list__title">Citizenship:</div>
-          <!-- /.card-info-list__title -->
-          <div class="card-info-list__text"></div>
-          <!-- /.card-info-list__text -->
-        </div>
-        <!-- /.card-info-list -->
-
-        <div class="card-info-list">
-          <div class="card-info-list__title">Movies:</div>
-          <!-- /.card-info-list__title -->
-          <div class="card-info-list__text">
-          </div>
-          <!-- /.card-info-list__text -->
-        </div>
-        <!-- /.card-info-list -->
-      </div>
-      <!-- /.card-info -->
-    </div>
-    <!-- /.card -->
   </section>
   <!-- /.container wrap -->
 
-  <button type="submit" class="add-button">Load more</button> 
+  <!-- <button type="submit" class="add-button">Load more</button>  -->
   <!-- /.add-button -->
 
   <script src="script.js"></script>

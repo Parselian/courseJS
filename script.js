@@ -1,57 +1,160 @@
+window.addEventListener('load', () => {
+  const preloader = document.getElementById('preloader');
+  preloader.className = 'hidden';
+});
+
 document.addEventListener('DOMContentLoaded', () => {
   'use_strict';
 
-  const cardWrap = document.querySelector('.wrap'), 
-      card = document.querySelector('.card');
-  
-  const addBlocks = (data) => {
-    for(let key in data) {
-      const cloneCard = card.cloneNode('true');
+  const header = document.querySelector('.header'),
+        headerButton = document.querySelector('.header-burger__btn'),
+        cardWrap = document.querySelector('.wrap'),
+        burgerMenu = document.querySelector('.burger-menu'),
+        burgerAllBtn = burgerMenu.querySelector('.burger-menu__item_all'),
+        addButton = document.querySelector('.add-button');
 
-      const addInfo = (block) => {
-        switch(block.className) {
-          case 'card-img__img': 
-            // block.src = data[key].photo;
-            break;
-          case 'card-img__title':
-            block.textContent = data[key].name;
-            break;
-          case 'card-img__info':
+  const addBlocks = (data) => {
+    let heroCard = '',
+        unfilteredMovies = [];
+
+    const goObj = (obj) => {
+      for (let key in obj) {
+        let value = obj[key]; 
+
+        if(key === 'movies') {
+          value.forEach(item => {
+            unfilteredMovies.push(item);
+          });
+        }
+
+        if (typeof (value) === "object") {
+          goObj(value);
         }
       }
+    };
+    goObj(data);
 
-      cloneCard.childNodes.forEach((item) => {
-        if(item.className === 'card-img') {
-          for(let i = 0; i < item.children.length; i++) {
-            addInfo(item.children[i]);
-          }
-        } else if(item.className === 'card-info') {
-          for(let i = 0; i < item.children.length; i++) {
-            console.log(item.children[i].children[i]);
-            addInfo(item.children[i]);
-          }
+    const fillBurgerMenu = (arr) => {
+      let filteredMovies = [],
+          burgerContent = '';
+    
+      for (let str of arr) {
+        if (!filteredMovies.includes(str)) {
+          filteredMovies.push(str);
+          burgerContent += `
+            <li class="burger-menu__item">${str}</li>
+          `;
+        }
+      }
+      
+      burgerAllBtn.insertAdjacentHTML('afterend', burgerContent);
+    };
+    fillBurgerMenu(unfilteredMovies);
+
+    const expandMovies = () => {
+      cardWrap.addEventListener('click', (e) => {
+        const target = e.target;
+
+        if(target.matches('.card-info-list__btn-more')) {
+          target.previousElementSibling.remove();
+          target.nextElementSibling.classList.remove('block-hidden');
+          target.remove();
+          console.log(1);
         }
       });
+    };
+    expandMovies();
 
+    for(let key in data) {
+      if(!!data[key].movies && data[key].movies.join(' ').length > 20 ) {
+        const slicedText = data[key].movies.join(' ').slice(0, 20) + '...';
+        
+        data[key].movies = `
+          <span class="card-info-list__movies_sliced">
+            ${slicedText}
+          </span>
+          <div class="card-info-list__btn-more"> show more...</div>
+          <span class="card-info-list__movies_full block-hidden">
+            ${data[key].movies}
+          </span>
+        `;
+      }  
 
-      // getProp(cloneCard.children);
+      heroCard += `
+        <div class="card">
+        <div class="card-img">
+          <img src="${data[key].photo}" alt="Супергерой" class="card-img__img">
 
-      // filling card-img
-      cloneCard.children[0].children[0].src = data[key].photo;
-      cloneCard.children[0].children[1].textContent = data[key].name;
-      cloneCard.children[0].children[2].children[0].textContent = `${data[key].species}, ${data[key].genger}`;
-      cloneCard.children[0].children[2].children[2].textContent = `(${data[key].birthDay} - ${data[key].deathDay}`;
+          <h2 class="card-img__title">${data[key].name}</h2>
+          <!-- /.card-img__title -->
 
-      //filling card-info
-      cloneCard.children[1].children[0].children[1].textContent = data[key].realName;
-      cloneCard.children[1].children[1].children[1].textContent = data[key].status;
-      cloneCard.children[1].children[2].children[1].textContent = data[key].actors;
-      cloneCard.children[1].children[3].children[1].textContent = data[key].citizenship;
-      cloneCard.children[1].children[4].children[1].textContent = data[key].movies;
+          <div class="card-img__info">
+            <div class="card-img__species">${data[key].species}, ${data[key].genger}</div>
+            <!-- /.card-img__species -->
+            <div class="card-img__date">
+              (${data[key].birthDay} - ${data[key].deathDay})
+            </div>
+            <!-- /.card-img__date -->
+            </div>
+          <!-- /.card-img__info -->
+        </div>
+        <!-- /.card-img -->
 
-      cardWrap.appendChild(cloneCard);
+        <div class="card-info">
+          <div class="card-info-list">
+            <div class="card-info-list__title">Name:</div>
+            <!-- /.card-info-list__title -->
+            <div class="card-info-list__text">
+              ${data[key].realName}
+            </div>
+            <!-- /.card-info-list__text -->
+          </div>
+          <!-- /.card-info-list -->
+
+          <div class="card-info-list">
+            <div class="card-info-list__title">Status:</div>
+            <!-- /.card-info-list__title -->
+            <div class="card-info-list__text">
+            ${data[key].status}</div>
+            <!-- /.card-info-list__text -->
+          </div>
+          <!-- /.card-info-list -->
+
+          <div class="card-info-list">
+            <div class="card-info-list__title">Actor:</div>
+            <!-- /.card-info-list__title -->
+            <div class="card-info-list__text">
+            ${data[key].actors}</div>
+            <!-- /.card-info-list__text -->
+          </div>
+          <!-- /.card-info-list -->
+
+          <div class="card-info-list">
+            <div class="card-info-list__title">Citizenship:</div>
+            <!-- /.card-info-list__title -->
+            <div class="card-info-list__text">
+            ${data[key].citizenship}</div>
+            <!-- /.card-info-list__text -->
+          </div>
+          <!-- /.card-info-list -->
+
+          <div class="card-info-list">
+            <div class="card-info-list__title">Movies:</div>
+            <!-- /.card-info-list__title -->
+            <div class="card-info-list__text card-info__movie">
+              ${data[key].movies}
+            </div>
+            <!-- /.card-info-list__text -->
+          </div>
+          <!-- /.card-info-list -->
+        </div>
+        <!-- /.card-info -->
+      </div>
+      <!-- /.card -->
+    `;
     }
-    card.remove();
+
+    cardWrap.innerHTML = heroCard;
   };
 
   const getData = () => {
@@ -74,7 +177,36 @@ document.addEventListener('DOMContentLoaded', () => {
       addBlocks(response);
     })
     .catch((error) => {
-      card.remove();
+      addButton.classList.add('hidden');
       console.error(error);
     });
+
+  const toggleMenu = () => {
+    header.addEventListener('click', (e) => {
+      const allBlocks = document.querySelectorAll('.card');
+        const target = e.target;
+
+        allBlocks.forEach(item => {
+          const moviesBlock = item.querySelector('.card-info__movie');
+          if(!target.closest('.header-burger__btn, .burger-menu__close')) {
+            item.classList.remove('block-hidden');
+          }
+          if(target.matches('.burger-menu__item') && !moviesBlock.textContent.includes(target.textContent)) {
+            item.classList.add('block-hidden');
+          } else if(!target.matches('.header-burger__btn, .burger-menu__close') && target.matches('.burger-menu__item_all')) {
+            item.classList.remove('block-hidden');
+          }
+        });
+
+        if(target.matches('.burger-menu__close, .burger-menu__item, .burger-menu__item_all')) {
+          burgerMenu.classList.remove('show');
+          headerButton.classList.remove('active');
+        } else if( target.closest('.header-burger__btn') ) {
+          burgerMenu.classList.add('show');
+          headerButton.classList.add('active');
+        }
+      });
+  };
+  toggleMenu();
+    
 });
