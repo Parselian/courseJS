@@ -1,7 +1,7 @@
-window.addEventListener('load', () => {
-  const preloader = document.getElementById('preloader');
-  preloader.className = 'hidden';
-});
+// window.addEventListener('load', () => {
+//   const preloader = document.getElementById('preloader');
+//   preloader.className = 'hidden';
+// });
 
 document.addEventListener('DOMContentLoaded', () => {
   'use_strict';
@@ -11,7 +11,9 @@ document.addEventListener('DOMContentLoaded', () => {
         cardWrap = document.querySelector('.wrap'),
         burgerMenu = document.querySelector('.burger-menu'),
         burgerAllBtn = burgerMenu.querySelector('.burger-menu__item_all'),
-        addButton = document.querySelector('.add-button');
+        addButton = document.querySelector('.add-button'),
+        preloader = document.getElementById('preloader');
+
 
   const addBlocks = (data) => {
     let heroCard = '',
@@ -59,7 +61,6 @@ document.addEventListener('DOMContentLoaded', () => {
           target.previousElementSibling.remove();
           target.nextElementSibling.classList.remove('block-hidden');
           target.remove();
-          console.log(1);
         }
       });
     };
@@ -83,7 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
       heroCard += `
         <div class="card">
         <div class="card-img">
-          <img src="{data[key].photo}" alt="Супергерой" class="card-img__img">
+          <img src="${data[key].photo}" alt="Супергерой" class="card-img__img">
 
           <h2 class="card-img__title">
             ${data[key].name !== undefined ? data[key].name : '???'}
@@ -162,6 +163,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     cardWrap.innerHTML = heroCard;
+    preloader.className = 'hidden';
   };
 
   const getData = () => {
@@ -215,5 +217,4 @@ document.addEventListener('DOMContentLoaded', () => {
       });
   };
   toggleMenu();
-    
 });
