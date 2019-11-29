@@ -78,21 +78,27 @@ document.addEventListener('DOMContentLoaded', () => {
             ${data[key].movies}
           </span>
         `;
-      }  
+      }
 
       heroCard += `
         <div class="card">
         <div class="card-img">
-          <img src="${data[key].photo}" alt="Супергерой" class="card-img__img">
+          <img src="{data[key].photo}" alt="Супергерой" class="card-img__img">
 
-          <h2 class="card-img__title">${data[key].name}</h2>
+          <h2 class="card-img__title">
+            ${data[key].name !== undefined ? data[key].name : '???'}
+          </h2>
           <!-- /.card-img__title -->
 
           <div class="card-img__info">
-            <div class="card-img__species">${data[key].species}, ${data[key].genger}</div>
+            <div class="card-img__species">
+              ${data[key].species !== undefined ? data[key].species : '???'}, 
+              ${data[key].genger !== undefined ? data[key].genger : '???'}
+            </div>
             <!-- /.card-img__species -->
             <div class="card-img__date">
-              (${data[key].birthDay} - ${data[key].deathDay})
+              (${data[key].birthDay !== undefined ? data[key].birthDay : '???'} - 
+              ${data[key].deathDay !== undefined ? data[key].deathDay : '???'})
             </div>
             <!-- /.card-img__date -->
             </div>
@@ -105,7 +111,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="card-info-list__title">Name:</div>
             <!-- /.card-info-list__title -->
             <div class="card-info-list__text">
-              ${data[key].realName}
+              ${data[key].realName !== undefined ? data[key].realName : '???'}
             </div>
             <!-- /.card-info-list__text -->
           </div>
@@ -115,7 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="card-info-list__title">Status:</div>
             <!-- /.card-info-list__title -->
             <div class="card-info-list__text">
-            ${data[key].status}</div>
+              ${data[key].status !== undefined ? data[key].status : '???'}</div>
             <!-- /.card-info-list__text -->
           </div>
           <!-- /.card-info-list -->
@@ -124,7 +130,8 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="card-info-list__title">Actor:</div>
             <!-- /.card-info-list__title -->
             <div class="card-info-list__text">
-            ${data[key].actors}</div>
+              ${data[key].actors !== data[key].actors ? data[key].actors : '???'}
+            </div>
             <!-- /.card-info-list__text -->
           </div>
           <!-- /.card-info-list -->
@@ -133,7 +140,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="card-info-list__title">Citizenship:</div>
             <!-- /.card-info-list__title -->
             <div class="card-info-list__text">
-            ${data[key].citizenship}</div>
+            ${data[key].citizenship !== undefined ? data[key].citizenship : '???'}</div>
             <!-- /.card-info-list__text -->
           </div>
           <!-- /.card-info-list -->
@@ -142,7 +149,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="card-info-list__title">Movies:</div>
             <!-- /.card-info-list__title -->
             <div class="card-info-list__text card-info__movie">
-              ${data[key].movies}
+              ${data[key].movies !== undefined ? data[key].movies : '???'}
             </div>
             <!-- /.card-info-list__text -->
           </div>
