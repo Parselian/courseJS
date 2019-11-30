@@ -67,8 +67,8 @@ document.addEventListener('DOMContentLoaded', () => {
     expandMovies();
 
     for(let key in data) {
-      if(!!data[key].movies && data[key].movies.join(' ').length > 20 ) {
-        const slicedText = data[key].movies.join(' ').slice(0, 20) + '...';
+      if(!!data[key].movies && data[key].movies.join(' ').length > 27 ) {
+        const slicedText = data[key].movies.join(' ').slice(0, 27) + '...';
         
         data[key].movies = `
           <span class="card-info-list__movies_sliced">

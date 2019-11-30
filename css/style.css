@@ -172,6 +172,7 @@ body {
   display: inline-block;
   cursor: pointer;
   transition: color .3s;
+  border-bottom: 1px solid orange;
 }
 
 .card-info-list__btn-more:hover {
